@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/monitoring');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/adminnn', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/adminnn', [AuthController::class, 'login'])->name('login.post');
+    Route::post('/adminnn', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('login.post');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
