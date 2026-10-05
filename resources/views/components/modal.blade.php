@@ -2,7 +2,7 @@
 <div x-show="open" x-cloak x-transition.opacity @keydown.escape.window="open = false"
      class="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-4">
     <div class="absolute inset-0 bg-ink/50" @click="open = false"></div>
-    <form method="POST" :action="editing ? '{{ $update }}'.replace('_id_', editing) : '{{ $store }}'"
+    <form method="POST" enctype="multipart/form-data" :action="editing ? '{{ $update }}'.replace('_id_', editing) : '{{ $store }}'"
           class="relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl sm:max-w-lg sm:rounded-2xl">
         @csrf
         <template x-if="editing"><input type="hidden" name="_method" value="PUT"></template>

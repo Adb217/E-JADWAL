@@ -20,6 +20,9 @@ Route::prefix('monitoring')->name('viewer.')->controller(ViewerController::class
     Route::get('/ruangan', 'ruangan')->name('ruangan.index');
     Route::get('/ruangan/{ruangan}', 'ruanganShow')->name('ruangan.show');
     Route::get('/perubahan', 'perubahan')->name('perubahan.index');
+        Route::get('/jadwal', 'jadwal')->name('jadwal.index');
+    Route::get('/jadwal/{jadwal}', 'jadwalShow')->name('jadwal.show');
+    Route::get('/materi/{file}/download', 'materiDownload')->name('materi.download');
 });
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
@@ -33,4 +36,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('ruangan', Admin\RuanganController::class)->only($crud);
     Route::resource('guru-piket', Admin\GuruPiketController::class)->only($crud)->parameters(['guru-piket' => 'guruPiket']);
     Route::resource('perubahan', Admin\PerubahanController::class)->only($crud);
+
+        Route::resource('perubahan', Admin\PerubahanController::class)->only($crud);
+    Route::resource('materi', Admin\MateriController::class)->only($crud)->parameters(['materi' => 'materi']);
 });

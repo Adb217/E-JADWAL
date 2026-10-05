@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{GuruPiket, Jadwal, Kelas, Perubahan, Ruangan};
+
+use App\Models\{GuruPiket, Jadwal, Kelas, Materi, MateriFile, Perubahan, Ruangan};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ViewerController extends Controller
 {
@@ -42,6 +44,21 @@ class ViewerController extends Controller
             'kelas' => Kelas::orderBy('nama')->get(),
             'hari' => $hari,
         ]);
+    }
+
+        public function jadwalShow(Jadwal $jadwal)
+    {
+        $jadwal->load(self::REL);
+        $materi = Materi::with('files')->where('mapel_id', $jadwal->mapel_id)->latest()->get();
+
+        return view('viewer.jadwal.show', compact('jadwal', 'materi'));
+    }
+
+    public function materiDownload(MateriFile $file)
+    {
+        abort_unless(Storage::disk(MateriFile::DISK)->exists($file->path), 404, 'File tidak ditemukan.');
+
+        return Storage::disk(MateriFile::DISK)->download($file->path, $file->nama_asli);
     }
 
     public function ruangan(Request $r)

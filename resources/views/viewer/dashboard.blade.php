@@ -17,7 +17,7 @@
         <h2 class="mb-4 font-display text-xl font-semibold">Jadwal hari ini</h2>
         <div class="grid gap-3 md:grid-cols-2">
             @forelse($today as $t)
-            <article class="card flex gap-4 {{ $t->status === 'Berlangsung' ? 'card-live' : '' }}">
+            <a href="{{ route('viewer.jadwal.show', $t) }}" class="card card-link flex gap-4 {{ $t->status === 'Berlangsung' ? 'card-live' : '' }}">
                 <div class="w-20 shrink-0 border-r border-line pr-4 text-right">
                     <p class="tnum font-display text-xl font-semibold leading-none">{{ $t->mulai }}</p>
                     <p class="tnum mt-1.5 text-xs text-gray-400">{{ $t->selesai }}</p>
@@ -32,7 +32,7 @@
                     <p class="mt-1 text-sm text-gray-500">{{ $t->kelas->nama }} · {{ $t->ruangan->nama }}</p>
                     <p class="mt-0.5 text-sm text-gray-500"><i class="fa-regular fa-user mr-1.5 text-xs"></i>{{ $t->guru->nama }}</p>
                 </div>
-            </article>
+            </a>
             @empty
             <x-empty-state icon="fa-calendar-xmark" text="Tidak ada jadwal tersisa hari ini." />
             @endforelse

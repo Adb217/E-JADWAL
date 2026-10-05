@@ -26,7 +26,7 @@
 
 <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
     @forelse($jadwal as $j)
-    <div class="bg-white rounded-2xl border-l-4 {{ $j->border }} border border-gray-100 p-4 shadow-sm {{ $j->status === 'Selesai' ? 'opacity-50' : '' }}">
+    <a href="{{ route('viewer.jadwal.show', $j) }}" class="block bg-white rounded-2xl border-l-4 {{ $j->border }} border border-gray-100 p-4 shadow-sm transition hover:shadow-md {{ $j->status === 'Selesai' ? 'opacity-50' : '' }}">
         <div class="flex justify-between items-center gap-2 mb-2">
             <span class="font-bold text-lg">{{ $j->mulai }} <span class="text-gray-400 text-sm font-normal">- {{ $j->selesai }}</span></span>
             <span class="{{ $j->badge }} text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">{{ $j->status === 'Terjadwal' ? $j->hari : $j->status }}</span>
@@ -37,7 +37,8 @@
             <span><i class="fa-solid fa-user w-4 text-center mr-1"></i>{{ $j->guru->nama }}</span>
             <span><i class="fa-solid fa-door-open w-4 text-center mr-1"></i>{{ $j->ruangan->nama }}</span>
         </p>
-    </div>
+        <p class="mt-3 text-xs font-semibold text-maroon"><i class="fa-solid fa-folder-open mr-1"></i>Lihat detail & materi</p>
+    </a> 
     @empty
     <x-empty-state icon="fa-calendar-xmark" text="Tidak ada jadwal untuk filter ini." />
     @endforelse
