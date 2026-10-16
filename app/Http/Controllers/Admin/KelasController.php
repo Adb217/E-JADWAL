@@ -40,7 +40,8 @@ class KelasController extends Controller
     {
         return $r->validate([
             'nama' => ['required', 'max:50', Rule::unique('kelas', 'nama')->ignore($id)],
-            'jurusan' => 'nullable|max:100',
+                        'jurusan' => 'nullable|max:100',
+            'angkatan' => 'nullable|integer|min:1|max:99',
         ]);
     }
 }

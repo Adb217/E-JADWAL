@@ -8,6 +8,23 @@ class Jadwal extends Model
 {
     public const HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
+        protected static function booted(): void
+    {
+        // semua query Jadwal otomatis cuma baca periode yang aktif
+        static::addGlobalScope('periode', fn ($q) => $q->where('jadwals.periode_id', Periode::aktifId()));
+        static::creating(fn (Jadwal $j) => $j->periode_id ??= Periode::aktifId());
+    }
+
+    /** Pekan 1-2 = tanggal 1-14, pekan 3-4 = tanggal 15 dst. */
+    public static function pekanSekarang(): string
+    {
+        return now()->day <= 14 ? '1-2' : '3-4';
+    }
+
+        public function getPekanLabelAttribute(): ?string { return $this->pekan ? 'Pekan ' . $this->pekan : null; }
+        
+            public function getRuanganNamaAttribute(): string { return $this->ruangan?->nama ?? 'Belum ditentukan'; }
+            
     protected $table = 'jadwals';
     protected $guarded = [];
 
@@ -21,9 +38,10 @@ class Jadwal extends Model
         return self::HARI[now()->dayOfWeekIso - 1] ?? null;
     }
 
-    public function scopeHariIni($q)
+        public function scopeHariIni($q)
     {
-        return $q->where('hari', self::namaHariIni() ?? '-');
+        return $q->where('hari', self::namaHariIni() ?? '-')
+            ->where(fn ($w) => $w->whereNull('pekan')->orWhere('pekan', self::pekanSekarang()));
     }
 
     public function scopeUrut($q)
@@ -41,6 +59,7 @@ class Jadwal extends Model
             ->where(fn ($w) => $w->where('ruangan_id', $d['ruangan_id'])
                 ->orWhere('guru_id', $d['guru_id'])
                 ->orWhere('kelas_id', $d['kelas_id']))
+                            ->when(! empty($d['pekan']), fn ($x) => $x->where(fn ($p) => $p->whereNull('pekan')->orWhere('pekan', $d['pekan'])))
             ->when($ignoreId, fn ($x) => $x->where('id', '!=', $ignoreId));
     }
 

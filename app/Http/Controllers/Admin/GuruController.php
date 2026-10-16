@@ -46,6 +46,8 @@ class GuruController extends Controller
             'status' => ['required', Rule::in(['Aktif', 'Cuti', 'Nonaktif'])],
             'mapel_ids' => 'nullable|array',
             'mapel_ids.*' => 'exists:mapels,id',
+                        'nama' => 'required|max:120',
+            'kode' => ['nullable', 'max:10', Rule::unique('gurus', 'kode')->ignore($guru->id)],
         ]);
 
         $guru->fill(Arr::except($d, 'mapel_ids'))->save();

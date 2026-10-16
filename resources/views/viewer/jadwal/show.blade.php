@@ -1,6 +1,7 @@
 @extends('layouts.viewer')
 @section('title', $jadwal->mapel->nama)
 @section('content')
+<x-jadwal-tabs :tabs="$tabs" :aktif="$jadwal" />
 <a href="{{ route('viewer.jadwal.index') }}" class="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-maroon hover:underline">
     <i class="fa-solid fa-arrow-left text-xs"></i>Kembali ke jadwal
 </a>
@@ -18,7 +19,7 @@
                 ['fa-calendar-days', 'Waktu', $jadwal->hari . ', ' . $jadwal->mulai . ' - ' . $jadwal->selesai],
                 ['fa-school', 'Kelas', $jadwal->kelas->nama],
                 ['fa-user', 'Guru', $jadwal->guru->nama],
-                ['fa-door-open', 'Ruangan', $jadwal->ruangan->nama],
+                ['fa-door-open', 'Ruangan', $jadwal->ruangan_nama],
             ] as [$ic, $lb, $vl])
             <div class="flex items-start gap-3">
                 <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-cream text-maroon"><i class="fa-solid {{ $ic }} text-xs"></i></span>

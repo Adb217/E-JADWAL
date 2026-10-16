@@ -8,10 +8,12 @@
 
 @php
 $nav = [
-    ['viewer.dashboard',       'viewer.dashboard',   'fa-house',         'Beranda'],
-    ['viewer.jadwal.index',    'viewer.jadwal.*',    'fa-calendar-days', 'Jadwal'],
-    ['viewer.ruangan.index',   'viewer.ruangan.*',   'fa-door-open',     'Ruangan'],
-    ['viewer.perubahan.index', 'viewer.perubahan.*', 'fa-bell',          'Perubahan'],
+    ['viewer.dashboard',       'viewer.dashboard',   'fa-house',           'Beranda'],
+    ['viewer.jadwal.index',    'viewer.jadwal.*',    'fa-calendar-days',   'Jadwal'],
+    ['viewer.mapel.index',     'viewer.mapel.*',     'fa-book-open',       'Mapel'],
+    ['viewer.guru.index',      'viewer.guru.*',      'fa-chalkboard-user', 'Guru'],
+    ['viewer.ruangan.index',   'viewer.ruangan.*',   'fa-door-open',       'Ruangan'],
+    ['viewer.perubahan.index', 'viewer.perubahan.*', 'fa-bell',            'Perubahan'],
 ];
 @endphp
 

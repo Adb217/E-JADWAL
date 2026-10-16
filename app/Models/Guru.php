@@ -7,6 +7,14 @@ use Illuminate\Support\Str;
 
 class Guru extends Model
 {
+        public function kehadiran() { return $this->hasMany(KehadiranGuru::class); }
+
+    public function kehadiranHariIni() { return $this->hasOne(KehadiranGuru::class)->whereDate('tanggal', today()); }
+
+    public function getStatusHariIniAttribute(): string
+    {
+        return $this->kehadiranHariIni?->status ?? 'Belum Datang';
+    }
     protected $table = 'gurus';
     protected $guarded = [];
 

@@ -1,5 +1,5 @@
 <nav class="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
-    <div class="grid grid-cols-4 text-[11px]">
+        <div class="grid grid-cols-6 text-[11px]">
         @foreach($nav as [$route, $pattern, $icon, $label])
         @php $on = request()->routeIs($pattern); @endphp
         <a href="{{ route($route) }}" class="flex flex-col items-center gap-1 py-2 {{ $on ? 'font-semibold text-maroon' : 'text-gray-500' }}">

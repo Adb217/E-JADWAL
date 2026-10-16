@@ -7,8 +7,8 @@ $menu = [
     ['admin.mapel.index',      'admin.mapel.*',      'fa-book-open',       'Mapel'],
     ['admin.ruangan.index',    'admin.ruangan.*',    'fa-door-open',       'Ruangan'],
     ['admin.guru-piket.index', 'admin.guru-piket.*', 'fa-id-card',         'Guru piket'],
+        ['admin.kehadiran.index', 'admin.kehadiran.*', 'fa-user-check', 'Kehadiran'],
     ['admin.perubahan.index',  'admin.perubahan.*',  'fa-bell',            'Perubahan'],
-        ['admin.perubahan.index',  'admin.perubahan.*',  'fa-bell',            'Perubahan'],
     ['admin.materi.index',     'admin.materi.*',     'fa-folder-open',     'Materi'],
 ];
 @endphp

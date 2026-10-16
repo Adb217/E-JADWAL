@@ -48,7 +48,7 @@
         <p class="text-gray-500 text-sm mb-2"><i class="fa-solid fa-user w-4 text-center mr-1"></i>{{ $j->guru->nama }}</p>
         <hr class="mb-2">
         <p class="text-sm text-gray-600 flex flex-wrap gap-x-4 gap-y-1">
-            <span><i class="fa-solid fa-door-open w-4 text-center mr-1"></i>{{ $j->ruangan->nama }}</span>
+            <span><i class="fa-solid fa-door-open w-4 text-center mr-1"></i>{{ $j->ruangan_nama }}</span>
             <span><i class="fa-solid fa-users w-4 text-center mr-1"></i>{{ $j->kelas->nama }}</span>
         </p>
     </div>

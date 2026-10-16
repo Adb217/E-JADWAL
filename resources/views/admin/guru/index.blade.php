@@ -2,8 +2,8 @@
 @section('title','Data Guru')
 @section('content')
 <div x-data="{ open:false, editing:null, f:{},
-    add(){ this.editing=null; this.f={nama:'',nip:'',status:'Aktif',mapel_ids:[]}; this.open=true },
-    edit(g){ this.editing=g.id; this.f={...g, nip:g.nip ?? ''}; this.open=true } }">
+    add(){ this.editing=null; this.f={nama:'',kode:'',nip:'',status:'Aktif',mapel_ids:[]}; this.open=true },
+edit(g){ this.editing=g.id; this.f={...g, nip:g.nip ?? '', kode:g.kode ?? ''}; this.open=true } }">
 
     <x-page-head title="Data Guru" sub="Kelola daftar tenaga pendidik SMK Kosgoro." add="Tambah Guru" search="Cari Nama / NIP..." />
 
@@ -13,7 +13,7 @@
             <div class="flex justify-between items-start gap-2">
                 <div>
                     <h3 class="font-bold">{{ $g->nama }}</h3>
-                    <p class="text-gray-500 text-sm mb-2">NIP: {{ $g->nip ?? '-' }}</p>
+                    <p class="text-gray-500 text-sm mb-2">Kode: {{ $g->kode ?? '-' }} · NIP: {{ $g->nip ?? '-' }}</p>
                 </div>
                 <span class="bg-cream text-maroon text-xs font-semibold px-3 py-1 rounded-full h-fit">{{ $g->status }}</span>
             </div>
@@ -25,7 +25,7 @@
                 @endforelse
             </div>
             <hr class="mb-2 mt-auto">
-            <x-actions :item="['id'=>$g->id,'nama'=>$g->nama,'nip'=>$g->nip,'status'=>$g->status,'mapel_ids'=>$g->mapel->pluck('id')]"
+           <x-actions :item="['id'=>$g->id,'nama'=>$g->nama,'kode'=>$g->kode,'nip'=>$g->nip,'status'=>$g->status,'mapel_ids'=>$g->mapel->pluck('id')]"
                        :destroy="route('admin.guru.destroy', $g)" msg="Hapus guru ini beserta jadwal mengajarnya?" />
         </div>
         @empty
@@ -43,7 +43,7 @@
             </select>
         </div>
         <div>
-            <label class="lbl">Mata Pelajaran</label>
+            <div><label class="lbl">Kode Guru</label><input name="kode" x-model="f.kode" placeholder="mis. MRD" class="inp"></div>
             <div class="grid grid-cols-2 gap-2 mt-2">
                 @foreach($mapel as $m)
                 <label class="flex items-center gap-2 text-sm">

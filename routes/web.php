@@ -15,6 +15,11 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::prefix('monitoring')->name('viewer.')->controller(ViewerController::class)->group(function () {
+          Route::get('/mapel', 'mapelAngkatan')->name('mapel.index');
+    Route::get('/mapel/angkatan/{angkatan}', 'mapelKelas')->whereNumber('angkatan')->name('mapel.kelas');
+    Route::get('/mapel/kelas/{kelas}', 'mapelMateri')->name('mapel.materi');
+    Route::get('/guru', 'guru')->name('guru.index');
+    Route::get('/guru', 'guru')->name('guru.index');
     Route::get('/', 'dashboard')->name('dashboard');
     Route::get('/jadwal', 'jadwal')->name('jadwal.index');
     Route::get('/ruangan', 'ruangan')->name('ruangan.index');
@@ -28,6 +33,9 @@ Route::prefix('monitoring')->name('viewer.')->controller(ViewerController::class
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('jadwal', Admin\JadwalController::class)->except('show');
+
+        Route::get('kehadiran', [Admin\KehadiranController::class, 'index'])->name('kehadiran.index');
+    Route::post('kehadiran/{guru}', [Admin\KehadiranController::class, 'update'])->name('kehadiran.update');
 
     $crud = ['index', 'store', 'update', 'destroy'];
     Route::resource('kelas', Admin\KelasController::class)->only($crud)->parameters(['kelas' => 'kelas']);
