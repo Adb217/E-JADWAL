@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jadwal extends Model
 {
+
+    public const WARNA_HARI = [
+        'Senin'  => ['card' => 'bg-red-50 border-red-100',         'chip' => 'bg-red-600 text-white'],
+        'Selasa' => ['card' => 'bg-amber-50 border-amber-100',     'chip' => 'bg-amber-600 text-white'],
+        'Rabu'   => ['card' => 'bg-emerald-50 border-emerald-100', 'chip' => 'bg-emerald-600 text-white'],
+        'Kamis'  => ['card' => 'bg-sky-50 border-sky-100',         'chip' => 'bg-sky-600 text-white'],
+        'Jumat'  => ['card' => 'bg-violet-50 border-violet-100',   'chip' => 'bg-violet-600 text-white'],
+        'Sabtu'  => ['card' => 'bg-slate-50 border-slate-200',     'chip' => 'bg-slate-600 text-white'],
+    ];
+
+    public static function warnaHari(?string $hari): array
+    {
+        return self::WARNA_HARI[$hari] ?? ['card' => 'bg-white border-gray-100', 'chip' => 'bg-gray-600 text-white'];
+    }
+
+    public function getWarnaHariAttribute(): array { return self::warnaHari($this->hari); }
+    
     public const HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
         protected static function booted(): void
